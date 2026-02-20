@@ -21,10 +21,10 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
                     <select
                         ref={ref}
                         className={clsx(
-                            'w-full appearance-none rounded-ios border bg-white px-3.5 py-2.5 text-sm text-gray-900 pr-10',
+                            'w-full appearance-none rounded-d2y border bg-white px-3.5 py-2.5 text-sm text-gray-900 pr-10',
                             'transition-all duration-150',
-                            'focus:outline-none focus:ring-2 focus:ring-ios-blue focus:border-transparent',
-                            error ? 'border-ios-red' : 'border-ios-gray-4',
+                            'focus:outline-none focus:ring-2 focus:ring-d2y-blue focus:border-transparent',
+                            error ? 'border-d2y-red' : 'border-d2y-gray-4',
                             className,
                         )}
                         {...props}
@@ -33,10 +33,10 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
                     </select>
                     <ChevronDown
                         size={16}
-                        className="absolute right-3 top-1/2 -translate-y-1/2 text-ios-gray-1 pointer-events-none"
+                        className="absolute right-3 top-1/2 -translate-y-1/2 text-d2y-gray-1 pointer-events-none"
                     />
                 </div>
-                {error && <p className="mt-1.5 text-xs text-ios-red font-medium">{error}</p>}
+                {error && <p className="mt-1.5 text-xs text-d2y-red font-medium">{error}</p>}
             </div>
         );
     },

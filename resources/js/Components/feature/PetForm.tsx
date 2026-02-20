@@ -93,7 +93,7 @@ export default function PetForm({ defaultValues, onSubmit, isLoading, submitLabe
                             }
                         }}
                         placeholder="Tambah tag..."
-                        className="rounded-ios border-ios-gray-4 focus:ring-ios-blue flex-1 border px-3.5 py-2.5 text-sm focus:border-transparent focus:ring-2 focus:outline-none"
+                        className="flex-1 rounded-d2y border border-d2y-gray-4 px-3.5 py-2.5 text-sm focus:border-transparent focus:ring-2 focus:ring-d2y-blue focus:outline-none"
                     />
                     <Button type="button" variant="secondary" size="md" icon={<Plus size={15} />} onClick={addTag} />
                 </div>
@@ -102,7 +102,7 @@ export default function PetForm({ defaultValues, onSubmit, isLoading, submitLabe
                         {tags.map((tag) => (
                             <span
                                 key={tag}
-                                className="text-ios-blue inline-flex items-center gap-1 rounded-full bg-blue-50 px-2.5 py-1 text-xs font-medium"
+                                className="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2.5 py-1 text-xs font-medium text-d2y-blue"
                             >
                                 {tag}
                                 <button type="button" onClick={() => setTags(tags.filter((t) => t !== tag))}>

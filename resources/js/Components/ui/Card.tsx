@@ -21,9 +21,9 @@ export default function Card({ children, className, padding = 'md', onClick, hov
         <div
             onClick={onClick}
             className={clsx(
-                'bg-white rounded-ios-lg shadow-ios',
+                'bg-white rounded-d2y-lg shadow-d2y',
                 paddingClasses[padding],
-                hover && 'transition-shadow duration-200 hover:shadow-ios-md cursor-pointer',
+                hover && 'transition-shadow duration-200 hover:shadow-d2y-md cursor-pointer',
                 className,
             )}
         >
@@ -34,7 +34,7 @@ export default function Card({ children, className, padding = 'md', onClick, hov
 
 export function CardSection({ children, className }: { children: ReactNode; className?: string }) {
     return (
-        <div className={clsx('border-b border-ios-gray-5 last:border-0', className)}>
+        <div className={clsx('border-b border-d2y-gray-5 last:border-0', className)}>
             {children}
         </div>
     );

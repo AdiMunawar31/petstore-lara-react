@@ -52,18 +52,18 @@ export default function Modal({ open, onClose, title, children, size = 'md' }: M
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         exit={{ opacity: 0, y: 20, scale: 0.97 }}
                         transition={{ type: 'spring', stiffness: 380, damping: 30 }}
-                        className={`relative w-full ${sizeClasses[size]} bg-white rounded-ios-2xl shadow-ios-lg overflow-hidden`}
+                        className={`relative w-full ${sizeClasses[size]} bg-white rounded-d2y-2xl shadow-d2y-lg overflow-hidden`}
                     >
                         <div className="flex justify-center pt-3 pb-1 sm:hidden">
-                            <div className="w-10 h-1 rounded-full bg-ios-gray-4" />
+                            <div className="w-10 h-1 rounded-full bg-d2y-gray-4" />
                         </div>
 
                         {title && (
-                            <div className="flex items-center justify-between px-5 py-4 border-b border-ios-gray-5">
+                            <div className="flex items-center justify-between px-5 py-4 border-b border-d2y-gray-5">
                                 <h2 className="text-base font-semibold text-gray-900">{title}</h2>
                                 <button
                                     onClick={onClose}
-                                    className="w-7 h-7 flex items-center justify-center rounded-full bg-ios-gray-6 text-ios-gray-1 hover:bg-ios-gray-5 transition-colors"
+                                    className="w-7 h-7 flex items-center justify-center rounded-full bg-d2y-gray-6 text-d2y-gray-1 hover:bg-d2y-gray-5 transition-colors"
                                 >
                                     <X size={14} />
                                 </button>

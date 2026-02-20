@@ -20,20 +20,20 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
                 )}
                 <div className="relative">
                     {leftIcon && (
-                        <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-ios-gray-1">
+                        <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-d2y-gray-1">
                             {leftIcon}
                         </div>
                     )}
                     <input
                         ref={ref}
                         className={clsx(
-                            'w-full rounded-ios border bg-white px-3.5 py-2.5 text-sm text-gray-900',
-                            'placeholder:text-ios-gray-2',
+                            'w-full rounded-d2y border bg-white px-3.5 py-2.5 text-sm text-gray-900',
+                            'placeholder:text-d2y-gray-2',
                             'transition-all duration-150',
-                            'focus:outline-none focus:ring-2 focus:ring-ios-blue focus:border-transparent',
+                            'focus:outline-none focus:ring-2 focus:ring-d2y-blue focus:border-transparent',
                             error
-                                ? 'border-ios-red focus:ring-ios-red'
-                                : 'border-ios-gray-4',
+                                ? 'border-d2y-red focus:ring-d2y-red'
+                                : 'border-d2y-gray-4',
                             leftIcon && 'pl-10',
                             rightIcon && 'pr-10',
                             className,
@@ -41,16 +41,16 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
                         {...props}
                     />
                     {rightIcon && (
-                        <div className="absolute inset-y-0 right-0 flex items-center pr-3 text-ios-gray-1">
+                        <div className="absolute inset-y-0 right-0 flex items-center pr-3 text-d2y-gray-1">
                             {rightIcon}
                         </div>
                     )}
                 </div>
                 {error && (
-                    <p className="mt-1.5 text-xs text-ios-red font-medium">{error}</p>
+                    <p className="mt-1.5 text-xs text-d2y-red font-medium">{error}</p>
                 )}
                 {hint && !error && (
-                    <p className="mt-1.5 text-xs text-ios-gray-1">{hint}</p>
+                    <p className="mt-1.5 text-xs text-d2y-gray-1">{hint}</p>
                 )}
             </div>
         );
