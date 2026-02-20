@@ -1,9 +1,95 @@
-@import 'tailwindcss';
+@import "tailwindcss";
 
-@source '../views';
-@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source "../views";
+@source "../js/**/*.{js,jsx,ts,tsx}";
+@source "../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php";
 
 @theme {
-    --font-sans:
-        'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  --font-sans:
+    -apple-system,
+    BlinkMacSystemFont,
+    "SF Pro Display",
+    "SF Pro Text",
+    "Helvetica Neue",
+    Arial,
+    sans-serif;
+
+  --font-mono:
+    "SF Mono",
+    "Fira Code",
+    "Fira Mono",
+    "Roboto Mono",
+    monospace;
+
+  --color-d2y-blue: #007aff;
+  --color-d2y-blue-light: #5ac8fa;
+  --color-d2y-green: #34c759;
+  --color-d2y-indigo: #5856d6;
+  --color-d2y-orange: #ff9500;
+  --color-d2y-pink: #ff2d55;
+  --color-d2y-purple: #af52de;
+  --color-d2y-red: #ff3b30;
+  --color-d2y-teal: #5ac8fa;
+  --color-d2y-yellow: #ffcc00;
+
+  /* iOS Gray Scale */
+  --color-d2y-gray-1: #8e8e93;
+  --color-d2y-gray-2: #aeaeb2;
+  --color-d2y-gray-3: #c7c7cc;
+  --color-d2y-gray-4: #d1d1d6;
+  --color-d2y-gray-5: #e5e5ea;
+  --color-d2y-gray-6: #f2f2f7;
+
+  /* iOS Fill */
+  --color-d2y-fill-primary: rgba(120, 120, 128, 0.2);
+  --color-d2y-fill-secondary: rgba(120, 120, 128, 0.16);
+  --color-d2y-fill-tertiary: rgba(118, 118, 128, 0.12);
+  --color-d2y-fill-quaternary: rgba(116, 116, 128, 0.08);
+
+  --radius-d2y: 12px;
+  --radius-d2y-lg: 16px;
+  --radius-d2y-xl: 20px;
+  --radius-d2y-2xl: 28px;
+
+  --shadow-d2y: 0 1px 3px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.04);
+  --shadow-d2y-md: 0 2px 8px rgba(0,0,0,0.08), 0 8px 24px rgba(0,0,0,0.06);
+  --shadow-d2y-lg: 0 4px 16px rgba(0,0,0,0.10), 0 16px 48px rgba(0,0,0,0.08);
+  --shadow-d2y-inset: inset 0 0 0 0.5px rgba(0,0,0,0.1);
+
+  --backdrop-blur-d2y: 20px;
+  --backdrop-blur-d2y-lg: 40px;
+
+  --ease-d2y: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --ease-d2y-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  --animate-fade-in: fade-in 0.3s ease-out;
+  --animate-slide-up: slide-up 0.4s var(--ease-d2y);
+  --animate-slide-down: slide-down 0.3s var(--ease-d2y);
+  --animate-scale-in: scale-in 0.2s var(--ease-d2y-spring);
+  --animate-pulse-soft: pulse-soft 2s ease-in-out infinite;
+}
+
+@keyframes fade-in {
+  from { opacity: 0 }
+  to { opacity: 1 }
+}
+
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(16px) }
+  to { opacity: 1; transform: translateY(0) }
+}
+
+@keyframes slide-down {
+  from { opacity: 0; transform: translateY(-16px) }
+  to { opacity: 1; transform: translateY(0) }
+}
+
+@keyframes scale-in {
+  from { opacity: 0; transform: scale(0.92) }
+  to { opacity: 1; transform: scale(1) }
+}
+
+@keyframes pulse-soft {
+  0%, 100% { opacity: 1 }
+  50% { opacity: 0.5 }
 }
