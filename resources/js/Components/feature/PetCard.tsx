@@ -27,7 +27,7 @@ export default function PetCard({ pet, onDelete, showActions = true, index = 0 }
             {/* Image */}
             <Link href={`/pets/${pet.id}`}>
                 <div className="relative h-40 overflow-hidden bg-d2y-gray-6">
-                    {imageUrl && isValidUrl(imageUrl) ? (
+                    {/* {imageUrl && isValidUrl(imageUrl) ? (
                         <img
                             src={imageUrl}
                             alt={pet.name}
@@ -37,11 +37,10 @@ export default function PetCard({ pet, onDelete, showActions = true, index = 0 }
                                 (e.target as HTMLImageElement).style.display = 'none';
                             }}
                         />
-                    ) : (
-                        <div className="flex h-full w-full items-center justify-center">
-                            <PawPrint size={36} className="text-d2y-gray-3" />
-                        </div>
-                    )}
+                    ) : ( */}
+                    <div className="flex h-full w-full items-center justify-center">
+                        <PawPrint size={36} className="text-d2y-gray-3" />
+                    </div>
 
                     <div className="absolute top-2.5 right-2.5">
                         <Badge variant={pet.status}>{pet.status}</Badge>

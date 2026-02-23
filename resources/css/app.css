@@ -32,7 +32,7 @@
   --color-d2y-teal: #5ac8fa;
   --color-d2y-yellow: #ffcc00;
 
-  /* iOS Gray Scale */
+  /* d2y Gray Scale */
   --color-d2y-gray-1: #8e8e93;
   --color-d2y-gray-2: #aeaeb2;
   --color-d2y-gray-3: #c7c7cc;
@@ -40,7 +40,7 @@
   --color-d2y-gray-5: #e5e5ea;
   --color-d2y-gray-6: #f2f2f7;
 
-  /* iOS Fill */
+  /* d2y Fill */
   --color-d2y-fill-primary: rgba(120, 120, 128, 0.2);
   --color-d2y-fill-secondary: rgba(120, 120, 128, 0.16);
   --color-d2y-fill-tertiary: rgba(118, 118, 128, 0.12);
@@ -50,6 +50,11 @@
   --radius-d2y-lg: 16px;
   --radius-d2y-xl: 20px;
   --radius-d2y-2xl: 28px;
+
+  --rounded-d2y: 12px;
+  --rounded-d2y-lg: 16px;
+  --rounded-d2y-xl: 20px;
+  --rounded-d2y-2xl: 28px;
 
   --shadow-d2y: 0 1px 3px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.04);
   --shadow-d2y-md: 0 2px 8px rgba(0,0,0,0.08), 0 8px 24px rgba(0,0,0,0.06);

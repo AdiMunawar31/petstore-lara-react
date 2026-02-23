@@ -13,6 +13,9 @@
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet" />
 
+        {{-- Preconnect ke API (performa) --}}
+        <link rel="preconnect" href="{{ env('VITE_API_BASE_URL', 'https://petstore.swagger.io') }}" crossorigin>
+
         @viteReactRefresh
         @vite(['resources/js/app.tsx', "resources/js/pages/{$page['component']}.tsx"])
         @inertiaHead
