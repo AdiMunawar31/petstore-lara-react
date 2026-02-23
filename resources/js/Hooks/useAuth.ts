@@ -5,6 +5,8 @@ import { userService } from '@/Services/userService';
 import useAuthStore from '@/Store/authStore';
 import toast from 'react-hot-toast';
 
+const VALID_USERS = [{ username: 'user1', password: 'user1' }];
+
 /**
  * useAuth — Custom hook untuk operasi autentikasi
  *
@@ -17,17 +19,25 @@ export function useAuth() {
     // ─── Login Mutation ───────────────────────────────────────────────────────
     const loginMutation = useMutation<string, Error, { username: string; password: string }>({
         mutationFn: ({ username, password }) => userService.login(username, password),
-        onSuccess: (tokenResponse, { username }) => {
-            // PetStore mengembalikan string seperti: "logged in user session:xxx"
-            // Kita extract atau gunakan langsung sebagai token
-            const token = typeof tokenResponse === 'string' ? tokenResponse : String(tokenResponse);
 
-            login(username, token);
-            toast.success(`Selamat datang, ${username}!`);
+        onSuccess: (_, { username, password }) => {
+            const isValid = VALID_USERS.some((u) => u.username === username && u.password === password);
+
+            if (!isValid) {
+                toast.error('Username atau password salah');
+                return;
+            }
+
+            // 🪙 TOKEN SIMULASI
+            const fakeToken = btoa(`${username}:${Date.now()}`);
+
+            login(username, fakeToken);
+            toast.success(`Selamat datang, ${username}`);
             router.visit('/dashboard');
         },
-        onError: (error) => {
-            toast.error(`Login gagal: ${error.message}`);
+
+        onError: () => {
+            toast.error('Login gagal');
         },
     });
 

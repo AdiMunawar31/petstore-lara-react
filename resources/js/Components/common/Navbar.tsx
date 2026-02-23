@@ -11,7 +11,6 @@ const navItems = [
     { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
     { href: '/pets', label: 'Pets', icon: PawPrint },
     { href: '/store', label: 'Store', icon: ShoppingBag },
-    { href: '/users', label: 'Users', icon: Users },
 ];
 
 export default function Navbar() {

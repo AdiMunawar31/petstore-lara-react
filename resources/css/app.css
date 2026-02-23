@@ -46,15 +46,15 @@
   --color-d2y-fill-tertiary: rgba(118, 118, 128, 0.12);
   --color-d2y-fill-quaternary: rgba(116, 116, 128, 0.08);
 
-  --radius-d2y: 12px;
-  --radius-d2y-lg: 16px;
-  --radius-d2y-xl: 20px;
-  --radius-d2y-2xl: 28px;
+  --radius-d2y: 4px;
+  --radius-d2y-lg: 8px;
+  --radius-d2y-xl: 16px;
+  --radius-d2y-2xl: 24px;
 
-  --rounded-d2y: 12px;
-  --rounded-d2y-lg: 16px;
-  --rounded-d2y-xl: 20px;
-  --rounded-d2y-2xl: 28px;
+  --rounded-d2y: 4px;
+  --rounded-d2y-lg: 8px;
+  --rounded-d2y-xl: 16px;
+  --rounded-d2y-2xl: 24px;
 
   --shadow-d2y: 0 1px 3px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.04);
   --shadow-d2y-md: 0 2px 8px rgba(0,0,0,0.08), 0 8px 24px rgba(0,0,0,0.06);

@@ -2,6 +2,7 @@ import { type ReactNode, lazy, Suspense } from 'react';
 import { Head } from '@inertiajs/react';
 import Navbar from '@/Components/common/Navbar';
 import { Toaster } from 'react-hot-toast';
+import AuthGuard from '@/Middleware/AuthGuard';
 
 // Lazy load ReactQueryDevtools hanya di development (bukan di bundle production)
 const ReactQueryDevtools = import.meta.env.DEV
@@ -30,7 +31,7 @@ const maxWidthClasses = {
 
 export default function AppLayout({ title, children, maxWidth = '6xl' }: AppLayoutProps) {
     return (
-        <>
+        <AuthGuard>
             <Head title={title ?? 'PetStore'} />
 
             {/* Background */}
@@ -66,6 +67,6 @@ export default function AppLayout({ title, children, maxWidth = '6xl' }: AppLayo
                     <ReactQueryDevtools initialIsOpen={false} />
                 </Suspense>
             )}
-        </>
+        </AuthGuard>
     );
 }

@@ -33,7 +33,6 @@ const useAuthStore = create<AuthState>()(
                 const user: AuthUser = { username, token };
                 set({ user, isAuthenticated: true });
 
-                // Simpan token di sessionStorage untuk Axios interceptor
                 sessionStorage.setItem('auth_token', token);
                 sessionStorage.setItem('auth_user', JSON.stringify(user));
             },
@@ -41,7 +40,6 @@ const useAuthStore = create<AuthState>()(
             logout: () => {
                 set({ user: null, isAuthenticated: false });
 
-                // Bersihkan semua session data
                 sessionStorage.removeItem('auth_token');
                 sessionStorage.removeItem('auth_user');
             },
@@ -52,9 +50,7 @@ const useAuthStore = create<AuthState>()(
         }),
         {
             name: 'auth-session',
-            // Gunakan sessionStorage bukan localStorage untuk keamanan
             storage: createJSONStorage(() => sessionStorage),
-            // Hanya persist field yang diperlukan (jangan simpan actions)
             partialize: (state) => ({
                 user: state.user,
                 isAuthenticated: state.isAuthenticated,
