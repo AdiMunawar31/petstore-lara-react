@@ -12,7 +12,7 @@ export default function GuestLayout({ title, children }: GuestLayoutProps) {
     return (
         <GuestGuard>
             <Head title={title ?? 'PetStore'} />
-            <div className="bg-ios-gray-6 flex min-h-screen items-center justify-center p-4 font-sans">{children}</div>
+            <div className="flex min-h-screen items-center justify-center bg-d2y-gray-6 p-4 font-sans">{children}</div>
             <Toaster position="top-center" />
         </GuestGuard>
     );

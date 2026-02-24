@@ -34,15 +34,12 @@ export default function AppLayout({ title, children, maxWidth = '6xl' }: AppLayo
         <AuthGuard>
             <Head title={title ?? 'PetStore'} />
 
-            {/* Background */}
-            <div className="bg-ios-gray-6 min-h-screen font-sans">
+            <div className="min-h-screen bg-d2y-gray-6 font-sans">
                 <Navbar />
 
-                {/* Content — offset by navbar height */}
-                <main className={`${maxWidthClasses[maxWidth]} mx-auto px-4 pt-20 pb-10 sm:px-6`}>{children}</main>
+                <main className={`${maxWidthClasses[maxWidth]} mx-auto px-4 pt-24 pb-32 sm:px-6`}>{children}</main>
             </div>
 
-            {/* Toast notifications */}
             <Toaster
                 position="top-center"
                 toastOptions={{
@@ -61,7 +58,6 @@ export default function AppLayout({ title, children, maxWidth = '6xl' }: AppLayo
                 }}
             />
 
-            {/* Dev tools */}
             {ReactQueryDevtools && (
                 <Suspense fallback={null}>
                     <ReactQueryDevtools initialIsOpen={false} />

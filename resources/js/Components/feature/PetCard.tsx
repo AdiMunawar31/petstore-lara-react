@@ -1,4 +1,4 @@
-import { lazy, Suspense } from 'react';
+import { lazy, Suspense, useState } from 'react';
 import { motion } from 'framer-motion';
 import { PawPrint, Pencil, Trash2 } from 'lucide-react';
 import { Link } from '@inertiajs/react';
@@ -15,6 +15,7 @@ interface PetCardProps {
 }
 
 export default function PetCard({ pet, onDelete, showActions = true, index = 0 }: PetCardProps) {
+    const [imageError, setImageError] = useState(false);
     const imageUrl = pet.photoUrls?.[0];
 
     return (
@@ -27,20 +28,18 @@ export default function PetCard({ pet, onDelete, showActions = true, index = 0 }
             {/* Image */}
             <Link href={`/pets/${pet.id}`}>
                 <div className="relative h-40 overflow-hidden bg-d2y-gray-6">
-                    {/* {imageUrl && isValidUrl(imageUrl) ? (
+                    {!imageError && imageUrl && isValidUrl(imageUrl) ? (
                         <img
                             src={imageUrl}
                             alt={pet.name}
                             className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
-                            onError={(e) => {
-                                (e.target as HTMLImageElement).src = '';
-                                (e.target as HTMLImageElement).style.display = 'none';
-                            }}
+                            onError={() => setImageError(true)}
                         />
-                    ) : ( */}
-                    <div className="flex h-full w-full items-center justify-center">
-                        <PawPrint size={36} className="text-d2y-gray-3" />
-                    </div>
+                    ) : (
+                        <div className="flex h-full w-full items-center justify-center">
+                            <PawPrint size={36} className="text-d2y-gray-3" />
+                        </div>
+                    )}
 
                     <div className="absolute top-2.5 right-2.5">
                         <Badge variant={pet.status}>{pet.status}</Badge>

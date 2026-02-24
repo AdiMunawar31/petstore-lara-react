@@ -25,8 +25,7 @@ export function usePets(status: PetStatus | PetStatus[] = 'available') {
         gcTime: 1000 * 60 * 10, // Simpan di cache 10 menit
         retry: 1,
         select: (data) => {
-            // Filter data invalid dan batasi hasil
-            return data.filter((p) => p.id && p.name).slice(0, 50);
+            return data.filter((p) => p.id && p.name);
         },
     });
 }
@@ -35,7 +34,7 @@ export function usePet(petId: number | null) {
     return useQuery<Pet, Error>({
         queryKey: petKeys.detail(petId!),
         queryFn: () => petService.findById(petId!),
-        enabled: petId !== null && petId > 0, // Hanya fetch jika ID valid
+        enabled: petId !== null && petId > 0,
         staleTime: 1000 * 60 * 5,
         retry: 1,
     });
@@ -82,9 +81,15 @@ export function useDeletePet() {
     return useMutation<void, Error, number>({
         mutationFn: petService.delete,
         onSuccess: (_, petId) => {
-            // Hapus dari cache dan invalidate list
-            queryClient.removeQueries({ queryKey: petKeys.detail(petId) });
-            queryClient.invalidateQueries({ queryKey: petKeys.lists() });
+            queryClient.removeQueries({
+                queryKey: petKeys.detail(petId),
+            });
+
+            queryClient.invalidateQueries({
+                queryKey: petKeys.lists(),
+                exact: false,
+            });
+
             toast.success('Pet berhasil dihapus!');
         },
         onError: (error) => {

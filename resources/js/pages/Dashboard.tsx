@@ -20,21 +20,19 @@ export default function Dashboard() {
     console.log('recent inv : ', inventory);
 
     const stats = [
-        { icon: PawPrint, label: 'Available', value: inventory?.available ?? 0, color: 'bg-ios-green' },
-        { icon: TrendingUp, label: 'Pending', value: inventory?.pending ?? 0, color: 'bg-ios-orange' },
-        { icon: ShoppingBag, label: 'Sold', value: inventory?.sold ?? 0, color: 'bg-ios-red' },
-        { icon: Users, label: 'Total Stok', value: Object.values(inventory ?? {}).reduce((a, b) => a + b, 0), color: 'bg-ios-blue' },
+        { icon: PawPrint, label: 'Available', value: inventory?.available ?? 0, color: 'bg-d2y-green' },
+        { icon: TrendingUp, label: 'Pending', value: inventory?.pending ?? 0, color: 'bg-d2y-orange' },
+        { icon: ShoppingBag, label: 'Sold', value: inventory?.sold ?? 0, color: 'bg-d2y-red' },
+        { icon: Users, label: 'Total Stok', value: Object.values(inventory ?? {}).reduce((a, b) => a + b, 0), color: 'bg-d2y-blue' },
     ];
 
     return (
         <AppLayout title="Dashboard">
-            {/* Greeting */}
             <motion.div initial={{ opacity: 0, y: -12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }} className="mb-6">
                 <h1 className="text-2xl font-bold text-gray-900">Selamat datang, {user?.username ?? 'Pengguna'} 👋</h1>
-                <p className="text-ios-gray-1 mt-1 text-sm">Berikut ringkasan kondisi toko hewan peliharaan Anda.</p>
+                <p className="mt-1 text-sm text-d2y-gray-1">Berikut ringkasan kondisi toko hewan peliharaan Anda.</p>
             </motion.div>
 
-            {/* Stats Grid */}
             <div className="mb-8 grid grid-cols-2 gap-3 lg:grid-cols-4">
                 {stats.map((stat, i) => (
                     <motion.div
@@ -48,11 +46,10 @@ export default function Dashboard() {
                 ))}
             </div>
 
-            {/* Recent Pets */}
             <div>
                 <div className="mb-4 flex items-center justify-between">
                     <h2 className="text-base font-semibold text-gray-900">Pet Tersedia Terbaru</h2>
-                    <a href="/pets" className="text-ios-blue text-sm font-medium hover:underline">
+                    <a href="/pets" className="text-sm font-medium text-d2y-blue hover:underline">
                         Lihat semua
                     </a>
                 </div>

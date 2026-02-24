@@ -36,6 +36,7 @@ export interface Pet {
 }
 
 export interface PetFormData {
+    id: number;
     name: string;
     status: PetStatus;
     photoUrls: string[];
