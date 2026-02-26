@@ -1,6 +1,6 @@
 import axios, { AxiosInstance, AxiosError } from 'axios';
 
-const BASE_URL = !import.meta.env.DEV ? '/api-proxy' : (import.meta.env.VITE_API_BASE_URL as string);
+const BASE_URL = import.meta.env.DEV ? '/api-proxy' : (import.meta.env.VITE_API_BASE_URL as string);
 
 const apiClient: AxiosInstance = axios.create({
     baseURL: BASE_URL,
