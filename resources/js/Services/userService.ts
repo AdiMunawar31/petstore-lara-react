@@ -20,7 +20,8 @@ export const userService = {
      * Return: string session token dari server
      */
     login: async (username: string, password: string): Promise<string> => {
-        return apiClient.get(`/user/login?username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`);
+        const { data } = await apiClient.get<string>(`/user/login?username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`);
+        return data;
     },
 
     /**
@@ -34,7 +35,8 @@ export const userService = {
      * Ambil data user berdasarkan username
      */
     getByUsername: async (username: string): Promise<User> => {
-        return apiClient.get(`/user/${encodeURIComponent(username)}`);
+        const { data } = await apiClient.get<User>(`/user/${encodeURIComponent(username)}`);
+        return data;
     },
 
     /**

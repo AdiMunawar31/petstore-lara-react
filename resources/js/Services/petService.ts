@@ -15,20 +15,22 @@ import type { Pet, PetStatus, PetFormData } from '@/types';
  */
 
 export const petService = {
-    /**
-     * Ambil daftar pet berdasarkan status
-     * Cache dihandle oleh TanStack Query di custom hook
-     */
+    // ✅ Fix 4: array query params pakai URLSearchParams().append berulang
     findByStatus: async (status: PetStatus | PetStatus[] = 'available'): Promise<Pet[]> => {
-        const statusParam = Array.isArray(status) ? status.join(',') : status;
-        return apiClient.get(`/pet/findByStatus?status=${statusParam}`);
+        const params = new URLSearchParams();
+        const statuses = Array.isArray(status) ? status : [status];
+        statuses.forEach((s) => params.append('status', s));
+        const { data } = await apiClient.get<Pet[]>(`/pet/findByStatus?${params.toString()}`);
+        console.log('data pets status : ', data);
+        return data;
     },
 
     /**
      * Ambil detail satu pet berdasarkan ID
      */
     findById: async (petId: number): Promise<Pet> => {
-        return apiClient.get(`/pet/${petId}`);
+        const { data } = await apiClient.get<Pet>(`/pet/${petId}`);
+        return data;
     },
 
     /**
@@ -62,16 +64,5 @@ export const petService = {
      */
     delete: async (petId: number): Promise<void> => {
         return apiClient.delete(`/pet/${petId}`);
-    },
-
-    /**
-     * Upload gambar untuk pet tertentu
-     */
-    uploadImage: async (petId: number, file: File): Promise<{ message: string }> => {
-        const formData = new FormData();
-        formData.append('file', file);
-        return apiClient.post(`/pet/${petId}/uploadImage`, formData, {
-            headers: { 'Content-Type': 'multipart/form-data' },
-        });
     },
 };

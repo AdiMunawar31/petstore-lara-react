@@ -1,6 +1,6 @@
 export interface PageProps {
     auth: {
-        user: AuthUser | null;
+        user: { username: string } | null;
     };
     flash?: {
         success?: string;
@@ -27,6 +27,7 @@ export interface Tag {
 }
 
 export interface Pet {
+    data: any;
     id: number;
     name: string;
     status: PetStatus;

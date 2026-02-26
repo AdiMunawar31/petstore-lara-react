@@ -48,9 +48,11 @@ export function useCreatePet() {
     return useMutation<Pet, Error, PetFormData>({
         mutationFn: petService.create,
         onSuccess: (newPet) => {
+            console.log('newPet : ', newPet);
+
             // Invalidate semua list agar data terbaru diambil
             queryClient.invalidateQueries({ queryKey: petKeys.lists() });
-            toast.success(`${newPet.name} berhasil ditambahkan!`);
+            toast.success(`${newPet.data.name} berhasil ditambahkan!`);
         },
         onError: (error) => {
             toast.error(error.message);
@@ -67,7 +69,7 @@ export function useUpdatePet() {
             // Update cache langsung tanpa refetch (optimistic-like)
             queryClient.setQueryData(petKeys.detail(updatedPet.id), updatedPet);
             queryClient.invalidateQueries({ queryKey: petKeys.lists() });
-            toast.success(`${updatedPet.name} berhasil diperbarui!`);
+            toast.success(`${updatedPet.data.name} berhasil diperbarui!`);
         },
         onError: (error) => {
             toast.error(error.message);
@@ -91,21 +93,6 @@ export function useDeletePet() {
             });
 
             toast.success('Pet berhasil dihapus!');
-        },
-        onError: (error) => {
-            toast.error(error.message);
-        },
-    });
-}
-
-export function useUploadPetImage(petId: number) {
-    const queryClient = useQueryClient();
-
-    return useMutation<{ message: string }, Error, File>({
-        mutationFn: (file) => petService.uploadImage(petId, file),
-        onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: petKeys.detail(petId) });
-            toast.success('Gambar berhasil diupload!');
         },
         onError: (error) => {
             toast.error(error.message);

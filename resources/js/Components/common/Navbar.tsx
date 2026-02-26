@@ -2,12 +2,13 @@ import { Link, usePage } from '@inertiajs/react';
 import { motion } from 'framer-motion';
 import { PawPrint, LayoutDashboard, ShoppingBag, LogOut } from 'lucide-react';
 import { clsx } from 'clsx';
-import useAuthStore from '@/Store/authStore';
 import { userService } from '@/Services/userService';
 import { router } from '@inertiajs/react';
 import toast from 'react-hot-toast';
 import { useState } from 'react';
 import LogoutConfirmModal from '../feature/LogoutConfirmModal';
+import { useAuth } from '@/Hooks/useAuth';
+import { PageProps } from '@/types';
 
 const navItems = [
     { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
@@ -17,7 +18,8 @@ const navItems = [
 
 export default function Navbar() {
     const { url } = usePage();
-    const { user, logout } = useAuthStore();
+    const { auth } = usePage<PageProps>().props;
+    const { logout } = useAuth();
     const [logoutOpen, setLogoutOpen] = useState(false);
     const [isLoggingOut, setIsLoggingOut] = useState(false);
 
@@ -77,7 +79,7 @@ export default function Navbar() {
                     </nav>
 
                     <div className="ml-auto flex items-center gap-2">
-                        {user && <span className="hidden text-xs font-medium text-d2y-gray-1 md:block">{user.username}</span>}
+                        {auth.user && <span className="hidden text-xs font-medium text-d2y-gray-1 md:block">{auth.user?.username}</span>}
                         <button
                             onClick={() => setLogoutOpen(true)}
                             className="flex h-8 w-8 items-center justify-center rounded-full text-d2y-gray-1 transition-all hover:bg-red-50 hover:text-d2y-red"

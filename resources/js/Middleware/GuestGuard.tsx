@@ -1,16 +1,17 @@
+import type { PageProps } from '@/types';
+import { usePage } from '@inertiajs/react';
 import { useEffect } from 'react';
-import useAuthStore from '@/Store/authStore';
 
 export default function GuestGuard({ children }: { children: React.ReactNode }) {
-    const { isAuthenticated } = useAuthStore();
-
-    const token = typeof window !== 'undefined' ? sessionStorage.getItem('auth_token') : null;
+    const { auth } = usePage<PageProps>().props;
 
     useEffect(() => {
-        if (isAuthenticated && token) {
+        if (auth?.user) {
             window.location.replace('/dashboard');
         }
-    }, [isAuthenticated, token]);
+    }, [auth?.user]);
+
+    if (auth?.user) return null;
 
     return <>{children}</>;
 }

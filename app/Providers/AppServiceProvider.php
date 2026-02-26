@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Validation\Rules\Password;
+use Inertia\Inertia;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -21,9 +22,13 @@ class AppServiceProvider extends ServiceProvider
     /**
      * Bootstrap any application services.
      */
-    public function boot(): void
+    public function boot()
     {
-        $this->configureDefaults();
+        Inertia::share('auth', function () {
+            return [
+                'user' => session()->get('auth_user'),
+            ];
+        });
     }
 
     /**

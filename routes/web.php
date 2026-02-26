@@ -1,47 +1,31 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 use Inertia\Inertia;
+use App\Http\Controllers\AuthController;
 
-// ─── Guest Routes ─────────────────────────────────────────────────────────────
-
-Route::get('/login', function () {
-    return Inertia::render('Auth/Login');
-})->name('login');
-
-Route::get('/', function () {
-    return redirect('/dashboard');
+Route::middleware('guest')->group(function () {
+    Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
+    Route::post('/login', [AuthController::class, 'login'])->name('login.post');
 });
 
-// ─── Authenticated Routes ─────────────────────────────────────────────────────
-// Catatan: Karena tidak menggunakan Laravel Auth, guard diabaikan.
-// Autentikasi dihandle sepenuhnya di sisi React (Zustand + sessionStorage).
+Route::middleware('auth.session')->group(function () {
+    Route::redirect('/', '/dashboard');
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->name('dashboard');
+    Route::get('/dashboard', fn() => Inertia::render('Dashboard'))->name('dashboard');
 
+    Route::prefix('pets')->name('pets.')->group(function () {
+        Route::get('/', fn() => Inertia::render('Pets/Index'))->name('index');
+        Route::get('/create', fn() => Inertia::render('Pets/Create'))->name('create');
+        Route::get('/{id}', fn(string $id) => Inertia::render('Pets/Show', compact('id')))->name('show');
+        Route::get('/{id}/edit', fn(string $id) => Inertia::render('Pets/Edit', compact('id')))->name('edit');
+    });
 
-// ─── Pets ─────────────────────────────────────────────────────────────────────
+    Route::get('/store', fn() => Inertia::render('Store/Index'))->name('store.index');
+    Route::get('/users', fn() => Inertia::render('User/Index'))->name('users.index');
 
-Route::get('/pets', function () {
-    return Inertia::render('Pets/Index');
-})->name('pets.index');
+    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+});
 
-Route::get('/pets/create', function () {
-    return Inertia::render('Pets/Create');
-})->name('pets.create');
-
-Route::get('/pets/{id}', function (string $id) {
-    return Inertia::render('Pets/Show', ['id' => $id]);
-})->name('pets.show');
-
-Route::get('/pets/{id}/edit', function (string $id) {
-    return Inertia::render('Pets/Edit', ['id' => $id]);
-})->name('pets.edit');
-
-// ─── Store ────────────────────────────────────────────────────────────────────
-
-Route::get('/store', function () {
-    return Inertia::render('Store/Index');
-})->name('store.index');
+Route::fallback(fn() => redirect('/login'));

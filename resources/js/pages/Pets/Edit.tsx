@@ -19,7 +19,12 @@ export default function PetEdit({ id }: EditProps) {
 
     const handleSubmit = (data: PetFormData) => {
         if (!pet) return;
-        updatePet.mutate({ ...pet, ...data }, { onSuccess: () => router.visit(`/pets/${petId}`) });
+        const payload: PetFormData = {
+            ...data,
+            id: petId,
+        };
+
+        updatePet.mutate({ ...pet, ...payload }, { onSuccess: () => router.visit(`/pets`) });
     };
 
     return (

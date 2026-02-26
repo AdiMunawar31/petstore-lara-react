@@ -1,22 +1,14 @@
-import { useEffect } from 'react';
-import { router } from '@inertiajs/react';
-import useAuthStore from '@/Store/authStore';
+import { usePage } from '@inertiajs/react';
+import type { PageProps } from '@/types';
+import React from 'react';
+
+console.log('React version root:', React.version);
 
 export default function AuthGuard({ children }: { children: React.ReactNode }) {
-    const { isAuthenticated, logout } = useAuthStore();
+    const { auth } = usePage<PageProps>().props;
+    console.log('auth : ', auth);
 
-    const token = typeof window !== 'undefined' ? sessionStorage.getItem('auth_token') : null;
-
-    const isValidSession = isAuthenticated && Boolean(token);
-
-    useEffect(() => {
-        if (!isValidSession) {
-            logout();
-            window.location.replace('/login');
-        }
-    }, [isValidSession, logout]);
-
-    if (!isValidSession) return null;
+    if (!auth?.user) return null;
 
     return <>{children}</>;
 }

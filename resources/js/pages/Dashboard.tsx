@@ -3,16 +3,17 @@ import { motion } from 'framer-motion';
 import { PawPrint, ShoppingBag, Users, TrendingUp } from 'lucide-react';
 import AppLayout from '@/Layouts/AppLayout';
 import { PetCardSkeleton } from '@/Components/ui/Skeleton';
-import useAuthStore from '@/Store/authStore';
 import { useInventory } from '@/Hooks/useStore';
 import { usePets } from '@/Hooks/usePets';
 import { StatCard } from '@/Components/feature/StatCard';
+import { PageProps } from '@/types';
+import { usePage } from '@inertiajs/react';
 
 // Lazy load chart komponen besar
 const PetCard = lazy(() => import('@/Components/feature/PetCard'));
 
 export default function Dashboard() {
-    const { user } = useAuthStore();
+    const { auth } = usePage<PageProps>().props;
     const { data: inventory } = useInventory();
     const { data: recentPets, isLoading } = usePets('available');
 
@@ -29,7 +30,7 @@ export default function Dashboard() {
     return (
         <AppLayout title="Dashboard">
             <motion.div initial={{ opacity: 0, y: -12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }} className="mb-6">
-                <h1 className="text-2xl font-bold text-gray-900">Selamat datang, {user?.username ?? 'Pengguna'} 👋</h1>
+                <h1 className="text-2xl font-bold text-gray-900">Selamat datang, {auth.user?.username ?? 'Pengguna'} 👋</h1>
                 <p className="mt-1 text-sm text-d2y-gray-1">Berikut ringkasan kondisi toko hewan peliharaan Anda.</p>
             </motion.div>
 

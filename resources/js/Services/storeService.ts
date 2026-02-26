@@ -15,21 +15,24 @@ export const storeService = {
      * Ambil jumlah stok per status (available, pending, sold)
      */
     getInventory: async (): Promise<Inventory> => {
-        return apiClient.get('/store/inventory');
+        const { data } = await apiClient.get<Inventory>('/store/inventory');
+        return data;
     },
 
     /**
      * Buat order baru untuk sebuah pet
      */
     placeOrder: async (order: Omit<Order, 'id'>): Promise<Order> => {
-        return apiClient.post('/store/order', order);
+        const { data } = await apiClient.post<Order>('/store/order', order);
+        return data;
     },
 
     /**
      * Ambil detail order berdasarkan ID
      */
     getOrderById: async (orderId: number): Promise<Order> => {
-        return apiClient.get(`/store/order/${orderId}`);
+        const { data } = await apiClient.get<Order>(`/store/order/${orderId}`);
+        return data;
     },
 
     /**

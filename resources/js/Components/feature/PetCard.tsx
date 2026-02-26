@@ -27,7 +27,7 @@ export default function PetCard({ pet, onDelete, showActions = true, index = 0 }
         >
             {/* Image */}
             <Link href={`/pets/${pet.id}`}>
-                <div className="relative h-40 overflow-hidden bg-d2y-gray-6">
+                <div className="relative h-40 overflow-hidden bg-blue-50">
                     {!imageError && imageUrl && isValidUrl(imageUrl) ? (
                         <img
                             src={imageUrl}

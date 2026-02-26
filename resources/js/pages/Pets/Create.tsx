@@ -7,14 +7,17 @@ import PetForm from '@/Components/feature/PetForm';
 import { useCreatePet } from '@/Hooks/usePets';
 import { router } from '@inertiajs/react';
 import type { PetFormData } from '@/types';
+import { nanoid } from 'nanoid';
 
 export default function PetCreate() {
     const createPet = useCreatePet();
 
+    const generateNumericId = () => Number(nanoid(12).replace(/\D/g, '').slice(0, 15));
+
     const handleSubmit = (data: PetFormData) => {
         const payload: PetFormData = {
             ...data,
-            id: Date.now(),
+            id: generateNumericId(),
         };
 
         createPet.mutate(payload, {

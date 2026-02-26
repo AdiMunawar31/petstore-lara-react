@@ -46,17 +46,23 @@ export default function PetIndex() {
     }, [search]);
 
     const filteredPets = useMemo(() => {
-        const reversed = [...pets].reverse();
+        if (!debouncedSearch.trim()) return pets;
 
-        if (!debouncedSearch.trim()) return reversed;
+        const keyword = debouncedSearch.toLowerCase();
 
-        return reversed.filter((pet) => pet.name.toLowerCase().includes(debouncedSearch.toLowerCase()));
+        console.log('keyword : ', keyword);
+
+        return pets.filter((pet) => pet.name.toLowerCase().includes(keyword));
     }, [pets, debouncedSearch]);
+
+    console.log('filtered pets : ', filteredPets);
 
     const totalItems = filteredPets.length;
     const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
 
     const paginatedPets = useMemo(() => {
+        if (filteredPets.length === 0) return [];
+
         const start = (currentPage - 1) * ITEMS_PER_PAGE;
         return filteredPets.slice(start, start + ITEMS_PER_PAGE);
     }, [filteredPets, currentPage]);
@@ -70,6 +76,10 @@ export default function PetIndex() {
         });
     };
 
+    useEffect(() => {
+        setCurrentPage(1);
+    }, [debouncedSearch, status]);
+
     function getPaginationRange(current: number, total: number, delta = 2) {
         const range: (number | '...')[] = [];
         const left = Math.max(2, current - delta);
@@ -77,21 +87,15 @@ export default function PetIndex() {
 
         range.push(1);
 
-        if (left > 2) {
-            range.push('...');
-        }
+        if (left > 2) range.push('...');
 
         for (let i = left; i <= right; i++) {
             range.push(i);
         }
 
-        if (right < total - 1) {
-            range.push('...');
-        }
+        if (right < total - 1) range.push('...');
 
-        if (total > 1) {
-            range.push(total);
-        }
+        if (total > 1) range.push(total);
 
         return range;
     }
@@ -165,6 +169,7 @@ export default function PetIndex() {
                 <Suspense fallback={null}>
                     <AnimatePresence>
                         <motion.div
+                            key={`${status}-${debouncedSearch}-${currentPage}`}
                             className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4"
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}

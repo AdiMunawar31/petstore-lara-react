@@ -1,64 +1,67 @@
-import { useMutation } from '@tanstack/react-query';
+// resources/js/Hooks/useAuth.ts
 import { useCallback } from 'react';
-import { router } from '@inertiajs/react';
-import { userService } from '@/Services/userService';
-import useAuthStore from '@/Store/authStore';
+import { router, usePage } from '@inertiajs/react';
 import toast from 'react-hot-toast';
+import type { PageProps } from '@/types';
+import { useState } from 'react';
 
-const VALID_USERS = [{ username: 'user1', password: 'user1' }];
-
-/**
- * useAuth — Custom hook untuk operasi autentikasi
- *
- * Menggabungkan Zustand store dengan TanStack Query mutation
- * untuk login/logout yang terintegrasi dengan UI state.
- */
 export function useAuth() {
-    const { user, isAuthenticated, login, logout } = useAuthStore();
+    const { auth } = usePage<PageProps>().props;
+    const user = auth?.user ?? null;
+    const isAuthenticated = user !== null;
 
-    // ─── Login Mutation ───────────────────────────────────────────────────────
-    const loginMutation = useMutation<string, Error, { username: string; password: string }>({
-        mutationFn: ({ username, password }) => userService.login(username, password),
+    const [isLoggingIn, setIsLoggingIn] = useState(false);
+    const [loginError, setLoginError] = useState<string | null>(null);
 
-        onSuccess: (_, { username, password }) => {
-            const isValid = VALID_USERS.some((u) => u.username === username && u.password === password);
+    const login = useCallback(async ({ username, password }: { username: string; password: string }) => {
+        setIsLoggingIn(true);
+        setLoginError(null);
 
-            if (!isValid) {
-                toast.error('Username atau password salah');
-                return;
-            }
-
-            // 🪙 TOKEN SIMULASI
-            const fakeToken = btoa(`${username}:${Date.now()}`);
-
-            login(username, fakeToken);
-            toast.success(`Selamat datang, ${username}`);
-            router.visit('/dashboard');
-        },
-
-        onError: () => {
-            toast.error('Login gagal');
-        },
-    });
-
-    // ─── Logout ───────────────────────────────────────────────────────────────
-    const handleLogout = useCallback(async () => {
         try {
-            await userService.logout();
+            await new Promise<void>((resolve, reject) => {
+                router.post(
+                    '/login',
+                    { username, password },
+                    {
+                        onSuccess: () => {
+                            toast.success(`Selamat datang, ${username}!`);
+                            resolve();
+                        },
+                        onError: (errors) => {
+                            const msg = errors.username ?? errors.password ?? 'Login gagal';
+                            setLoginError(msg);
+                            toast.error(msg);
+                            reject(new Error(msg));
+                        },
+                        onFinish: () => setIsLoggingIn(false),
+                    },
+                );
+            });
         } catch {
-            // Tetap logout meski API call gagal
-        } finally {
-            logout();
-            router.visit('/login');
+            // error sudah di-handle di onError
         }
-    }, [logout]);
+    }, []);
+
+    const logout = useCallback(() => {
+        router.post(
+            '/logout',
+            {},
+            {
+                onSuccess: () => {
+                    toast.success('Sampai jumpa!');
+                    // router.visit('/login', { replace: true });
+                    window.location.href = '/login';
+                },
+            },
+        );
+    }, []);
 
     return {
         user,
         isAuthenticated,
-        login: loginMutation.mutate,
-        logout: handleLogout,
-        isLoggingIn: loginMutation.isPending,
-        loginError: loginMutation.error,
+        login,
+        logout,
+        isLoggingIn,
+        loginError,
     };
 }
