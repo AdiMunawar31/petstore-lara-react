@@ -11,10 +11,12 @@ class AuthSession
     public function handle(Request $request, Closure $next): Response
     {
         if (!$request->session()->has('auth_user')) {
+             // Jika request datang dari Inertia (SPA navigation)
             if ($request->header('X-Inertia')) {
                 return response()->json(['message' => 'Unauthenticated.'], 401);
             }
 
+            // Jika request biasa (reload, direct access)
             return redirect()->route('login');
         }
 
